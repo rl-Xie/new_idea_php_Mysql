@@ -15,7 +15,8 @@ function s($data = null, $code = 200)
     return ['success' => true, 'data' => $data];
 }
 
-function json_die($data){
+function json_die($data)
+{
     echo json($data);
     die();
 }
@@ -27,7 +28,7 @@ function tpl($path)
 
 function path($path, $type = 'php')
 {
-    return (__DIR__ . '/../' . $path . '.' . $type);
+    return (__DIR__ . '/../' . $path . ($type ? '.' . $type : ''));
 }
 
 function config($key)
@@ -53,15 +54,47 @@ function logged_in()
 {
     return (bool)@$_SESSION['user']['id'];
 }
+
 //跳转
 function redirect($url)
 {
     header("Location: $url");
 }
+
 //获取登录的用户名
-function his($username){
-    if(! logged_in()){
+function his($username)
+{
+    if (!logged_in()) {
         return null;
     }
-    return @$_SESSION['user'][$username];
+    return @$_SESSION['user'][ $username ];
+}
+
+function move_uploded($key, &$data = null)
+{
+    $file_type = [
+        'image/jpeg' => 'jpg',
+        'image/png'  => 'png',
+    ];
+    $file = @$_FILES[ $key ];
+    if (!$tmp = $file['tmp_name'])
+        return false;
+
+    $old_name = $file['name'];
+    $file_name = uniqid() . '.' . rand(100, 999);
+    $mime = $file['type'];
+    $ext = $file_type[ $mime ];
+
+    $dest = path('public/upload', '') . "/$file_name.$ext";
+    if ($r = move_uploaded_file($tmp, $dest))
+        $data = [
+            'name'     => $file_name,
+            'ext'      => $ext,
+            'fullname' => "$file_name.$ext",
+            'mime'     => $mime,
+            'size'     => $file['size'],
+            'old_name' => $old_name,
+        ];
+
+    return $r;
 }

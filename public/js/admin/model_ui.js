@@ -62,7 +62,13 @@
             var me =this;
             this.el_form.addEventListener('submit', function (e) {
                 e.preventDefault();
-                me.add(me.el_form.get_data());
+                me.row = me.el_form.get_data();
+                me.add()
+                    .then(function (r) {
+                        if(r.success){
+                            me.reset_form();
+                        }
+                    })
             })
         }
     }
@@ -70,9 +76,4 @@
 
     Ui.prototype = Object.create(Model.prototype);
     Ui.prototype.constructor = Ui;
-    Ui.prototype.list_each = function (callback) {
-        this.list.forEach(function (item, index) {
-            callback(item, index);
-        });
-    }
 })();

@@ -3,11 +3,14 @@ tpl('model/Model');
 
 class Api extends Model
 {
-
     public function add($params, &$msg)
     {
-        return $this->filtration($params)
-            ->start_execute($msg);
+       $this->filtration($params);
+       if($id = $this->start_execute($msg)){
+           move_uploded('cover_path',$upload);
+           $this->where('id',$id)
+               ->update(['cover_path' => $upload['fullname']]);
+       }
     }
 
     public function remove($params = [], &$msg)

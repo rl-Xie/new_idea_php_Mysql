@@ -6,6 +6,7 @@
         this.name = name;
         this.page = 1;
         this.list = [];
+        this.row = {};
     }
 
     Model.prototype.read = function () {
@@ -26,12 +27,25 @@
                 console.log(r);
             })
     };
-    Model.prototype.add = function (data) {
+    Model.prototype.add = function () {
         var me = this;
-        $.post('/api/' + this.name + '/add', data)
+        return $.ajax({
+            url: '/api/' + this.name + '/add',
+            method: 'post',
+            data: me.row,
+            cache: false,
+            contentType: false,
+            processData: false
+        })
             .then(function (r) {
-                me.reset_form();
-                me.read();
+                if (r.success) {
+                    me.read();
+                }
+                // me.list = r.data;
+                if (me.after_add)
+                    me.after_add();
+
+                return r;
             })
     };
     Model.prototype.update = function (data) {
@@ -39,5 +53,10 @@
             .then(function (r) {
                 console.log(r);
             })
+    };
+    Model.prototype.list_each = function (callback) {
+        this.list.forEach(function (item, index) {
+            callback(item, index);
+        });
     }
 })();
