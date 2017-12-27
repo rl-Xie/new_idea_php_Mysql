@@ -1,5 +1,8 @@
 ;(function () {
     'use strict';
+    var top_one = document.querySelector('.f-page .top-one a');
+    var next_one = document.querySelector('.f-page .next-one a');
+
     var product = new Ui('product', '#list', '#show_data tbody');
     var cat = new Model('cat');
     var el = document.getElementById('cat_select_list');
@@ -31,6 +34,20 @@
             el.appendChild(option);
         })
     }
+
+
+    init();
+    function init() {
+        top_one.addEventListener('click',function () {
+            product.turn_top_page();
+            product.read();
+        });
+        next_one.addEventListener('click',function () {
+            product.turn_next_page();
+            product.read();
+        });
+    }
+    product.read_data_number();
 
     product.read();
     product.monitor_event();  //监听增加一条

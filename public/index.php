@@ -61,7 +61,7 @@ function has_permission_to($model, $action)
 {
     $public = [
         'user'    => ['signup', 'login', 'logout'],
-        'product' => ['read','read_item'],
+        'product' => ['read','read_item','read_number'],
         'cat'     => ['read','read_number'],
     ];
     $private = [

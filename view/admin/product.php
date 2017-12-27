@@ -42,6 +42,14 @@
         </tbody>
     </table>
 </div>
+<div class="f-page">
+    <nav aria-label="Page navigation">
+        <ul class="pager">
+            <li class="top-one"><a href="#">上一页</a></li>
+            <li class="next-one"><a href="#">下一页</a></li>
+        </ul>
+    </nav>
+</div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 <script src="/js/util/fundation.js"></script>
 <script src="/js/admin/model_api.js"></script>

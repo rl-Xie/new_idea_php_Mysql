@@ -3,16 +3,20 @@ body{
 }
 .small-container{
     max-width: 360px;
+    max-height: 650px;
     margin-left: auto;
     margin-right: auto;
     background-color:white;
+    overflow: auto;
 }
 [class*=col-]{
    padding: 0;
 }
 .cat-list {
+    height:620px;
     background: #b6e4ea;
     color: #fde4d9;
+    /*position: fixed;*/
 }
 .cat-item {
     display: block;

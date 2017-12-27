@@ -106,7 +106,7 @@ class Db
     }
 
     //获取数据
-    public function get_data($type)
+    public function get_data($type=null)
     {
         return $this->pdo_sta->fetchAll($type ? PDO::FETCH_NUM : PDO::FETCH_ASSOC);
     }
