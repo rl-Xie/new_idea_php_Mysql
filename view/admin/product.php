@@ -42,7 +42,6 @@
         </tbody>
     </table>
 </div>
-
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 <script src="/js/util/fundation.js"></script>
 <script src="/js/admin/model_api.js"></script>

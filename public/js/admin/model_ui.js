@@ -70,6 +70,20 @@
                         }
                     })
             })
+        };
+        //---------------------------------------------------------翻页
+        this.turn_next_page = function () {
+               if(this.page ==this.number){
+                   return;
+               }
+               this.page++;
+
+        };
+        this.turn_top_page = function () {
+            if(this.page==1){
+                return;
+            }
+            this.page--;
         }
     }
 

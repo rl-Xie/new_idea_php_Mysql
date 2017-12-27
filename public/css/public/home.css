@@ -16,5 +16,6 @@
 }
 
 .product-item img {
-    width: 50px;
+   display: block;
+    width: 100%;
 }

@@ -7,6 +7,7 @@
         this.page = 1;
         this.list = [];
         this.row = {};
+        this.number;
     }
 
     Model.prototype.read = function () {
@@ -17,6 +18,16 @@
                 if (me.after_read)
                     me.after_read();
             })
+    };
+
+    //获取搜有数据的个数  以及求出页数
+    Model.prototype.read_data_number = function () {
+        var me = this;
+        $.post('/api/' + this.name + '/read_number')
+            .then(function (r) {
+              me.number = Math.ceil(r.data/10);
+            })
+
     };
     Model.prototype.remove = function (id) {
         if (!confirm("确定要删除吗?")) {

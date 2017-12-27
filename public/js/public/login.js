@@ -7,7 +7,8 @@
         el_form.addEventListener('submit', function (e) {
             e.preventDefault();
             var row = el_form.get_data();
-            return $.ajax({
+            console.log(row);
+            $.ajax({
                 url: 'api/user/login',
                 method: 'post',
                 data: row,
@@ -23,13 +24,6 @@
                 }, function () {
                     alert('不对');
                 });
-            // $.post('api/user/login', el_form.get_data())
-            //     .then(function (r) {
-            //         el_form.reset();
-            //         location.href = '/';
-            //     }, function () {
-            //         alert('不对');
-            //     })
         })
     }
 })();

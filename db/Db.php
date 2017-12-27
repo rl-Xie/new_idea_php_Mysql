@@ -82,14 +82,14 @@ class Db
     }
 
     //查
-    public function get()
+    public function get($type = null)
     {
         if (!$this->sql_select)
             $this->select();
         $this->sql = "select $this->sql_select from $this->table $this->sql_order_by $this->sql_where $this->sql_limit";
         $this->execute();
         $this->sql_init();
-        return $this->get_data();
+        return $this->get_data($type);
     }
 
     //执行
@@ -106,9 +106,9 @@ class Db
     }
 
     //获取数据
-    public function get_data()
+    public function get_data($type)
     {
-        return $this->pdo_sta->fetchAll(PDO::FETCH_ASSOC);
+        return $this->pdo_sta->fetchAll($type ? PDO::FETCH_NUM : PDO::FETCH_ASSOC);
     }
 
     public function select($col = null)
