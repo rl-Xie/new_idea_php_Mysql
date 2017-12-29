@@ -1,6 +1,5 @@
 ;(function () {
     'use strict';
-
     var cat = new Model('cat');
     var product = new Model('product');
     var el_cat_list = document.querySelector('.cat-list');
@@ -31,8 +30,25 @@
                         <button class="add" type="button">+</button>
                     </div>
              `;
+            var timer;
+            var count = 0;
+            var button_event = el.querySelector('.add');
+            button_event.addEventListener('click', function () {
+                clearTimeout(timer);
+                count++;
+                console.log(count);
+                timer = setTimeout(function () {
+                    $.post('/api/cart/add_or_update', {product_id: 16, count: count})
+                }, 300);
+            });
             el_product_list.appendChild(el);
         })
-    }
+    };
 
+    // $.post('/api/order/checkout', {
+    //     list: [
+    //         {id: 19, count: 2},
+    //         {id: 20, count: 1}
+    //     ]
+    // })
 })();

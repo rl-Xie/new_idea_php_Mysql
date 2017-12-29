@@ -16,6 +16,37 @@
 }
 
 .product-item img {
-   display: block;
+    display: block;
     width: 100%;
+}
+
+.shopping {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #d06457;
+    position: fixed;
+    z-index: 10;
+    background-color: #ec545b;
+    text-align: center;
+    right: 500px;
+    top: 440px;
+}
+
+.shopping a {
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
+    line-height: 3em;
+}
+.shopping-page{
+    width: 200px;
+    height: 620px;
+    /*background-color: #2e6da4;*/
+    background-color: rgba(255,233,211,0.4);
+    z-index: 6;
+    right: 0px;
+    position: absolute;
+    display: none;
+
 }

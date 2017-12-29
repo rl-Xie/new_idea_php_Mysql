@@ -3,6 +3,9 @@
 class Db
 {
     public $table;
+    /*转义过的数据表名*/
+    public $escaped_table;
+
     public $pdo;
     //--------------------------------
     public $sql;
@@ -22,6 +25,7 @@ class Db
     public function __construct($table)
     {
         $this->table = $table;
+        $this->escaped_table = "`$table`";
         $this->connect();
     }
 
@@ -49,7 +53,7 @@ class Db
         }
         $this->sql_column = trim($this->sql_column, ',');
         $this->sql_value = trim($this->sql_value, ',');
-        $this->sql = "insert into $this->table ( $this->sql_column ) VALUES ( $this->sql_value)";
+        $this->sql = "insert into $this->escaped_table ( $this->sql_column ) VALUES ( $this->sql_value)";
 //        var_dump($this->sql);
 //        die();
         $r = $this->execute();
@@ -60,7 +64,7 @@ class Db
     //删
     public function delete()
     {
-        $this->sql = "delete from $this->table $this->sql_where";
+        $this->sql = "delete from $this->escaped_table $this->sql_where";
         $r = $this->execute();
         $this->sql_init();
         return $r;
@@ -75,7 +79,7 @@ class Db
             $this->sql_update .= " $key = '$val' ,";
         }
         $this->sql_update = trim($this->sql_update, ',');
-        $this->sql = "update $this->table set $this->sql_update $this->sql_where";
+        $this->sql = "update $this->escaped_table set $this->sql_update $this->sql_where";
         $r = $this->execute();
         $this->sql_init();
         return $r;
@@ -86,7 +90,7 @@ class Db
     {
         if (!$this->sql_select)
             $this->select();
-        $this->sql = "select $this->sql_select from $this->table $this->sql_order_by $this->sql_where $this->sql_limit";
+        $this->sql = "select $this->sql_select from $this->escaped_table $this->sql_order_by $this->sql_where $this->sql_limit";
         $this->execute();
         $this->sql_init();
         return $this->get_data($type);
@@ -106,7 +110,7 @@ class Db
     }
 
     //获取数据
-    public function get_data($type=null)
+    public function get_data($type = null)
     {
         return $this->pdo_sta->fetchAll($type ? PDO::FETCH_NUM : PDO::FETCH_ASSOC);
     }
@@ -205,7 +209,7 @@ class Db
 
     public function all_column()
     {
-        $this->sql = "desc $this->table";
+        $this->sql = "desc $this->escaped_table";
         $this->execute();
         $r = $this->get_data();
         $this->sql_init();
@@ -230,5 +234,12 @@ class Db
     {
         $this->limit(1);
         return @$this->get()[0];
+    }
+
+    public function find($id)
+    {
+        return @$this
+                    ->where('id', $id)
+                    ->get()[0];
     }
 }

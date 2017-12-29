@@ -3,6 +3,8 @@ require_once('../helper/helper.php');
 tpl('api/user');
 tpl('api/product');
 tpl('api/cat');
+tpl('api/order');
+tpl('api/cart');
 
 init();
 function init()
@@ -61,8 +63,8 @@ function has_permission_to($model, $action)
 {
     $public = [
         'user'    => ['signup', 'login', 'logout'],
-        'product' => ['read','read_item','read_number'],
-        'cat'     => ['read','read_number'],
+        'product' => ['read', 'read_item', 'read_number'],
+        'cat'     => ['read', 'read_number'],
     ];
     $private = [
         'product' => [
@@ -74,6 +76,12 @@ function has_permission_to($model, $action)
             'add'    => ['admin'],
             'change' => ['admin'],
             'remove' => ['admin'],
+        ],
+        'order'   => [
+            'checkout' => ['user', 'admin'],
+        ],
+        'cart'   => [
+            'add_or_update' => ['user', 'admin'],
         ],
     ];
     if (!key_exists($model, $public) && !key_exists($model, $private)) {

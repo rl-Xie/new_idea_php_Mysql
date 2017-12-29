@@ -29,6 +29,12 @@
         </div>
         <div class="col-xs-10">
             <div class="product-list">
+                <div class="shopping">
+                    <a href="">购物车</a>
+                </div>
+                <div class="shopping-page">
+
+                </div>
                 <div class="product-item clearfix">
                 </div>
             </div>
