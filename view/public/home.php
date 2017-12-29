@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/public/home.css">
 </head>
 <body>
-<div class="small-container">
+<div class="small-container one">
     <div class="nav">
         <?php if (logged_in()): ?>
             <a href="/logout">登出</a>
@@ -22,6 +22,21 @@
         <?php echo logged_in() ? his('username') : '游客' ?>你好
     </div>
 
+    <div class="shopping-page">
+        <div class="shopping-left">
+            <p>购物车</p>
+        </div>
+        <div class="shopping-right">
+            <div class="shopping-r-t">
+
+            </div>
+            <hr>
+            <div class="shopping-r-b">
+                <div>价格 : </div>
+                <div><button>结算</button></div>
+            </div>
+        </div>
+    </div>
     <div class="clearfix">
         <div class="col-xs-2">
             <div class="cat-list">
@@ -31,9 +46,6 @@
             <div class="product-list">
                 <div class="shopping">
                     <a href="">购物车</a>
-                </div>
-                <div class="shopping-page">
-
                 </div>
                 <div class="product-item clearfix">
                 </div>

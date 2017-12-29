@@ -7,7 +7,7 @@ body{
     margin-left: auto;
     margin-right: auto;
     background-color:white;
-    overflow: auto;
+    overflow: hidden;
 }
 [class*=col-]{
    padding: 0;
@@ -16,7 +16,6 @@ body{
     height:620px;
     background: #b6e4ea;
     color: #fde4d9;
-    /*position: fixed;*/
 }
 .cat-item {
     display: block;

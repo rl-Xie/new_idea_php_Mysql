@@ -20,6 +20,7 @@ class Db
     public $sql_column;
     public $sql_value;
     public $sql_update;
+    public $sql_join;
 
     //--------------------------------
     public function __construct($table)
@@ -90,7 +91,7 @@ class Db
     {
         if (!$this->sql_select)
             $this->select();
-        $this->sql = "select $this->sql_select from $this->escaped_table $this->sql_order_by $this->sql_where $this->sql_limit";
+        $this->sql = "select $this->sql_select from $this->escaped_table  $this->sql_join  $this->sql_order_by $this->sql_where $this->sql_limit";
         $this->execute();
         $this->sql_init();
         return $this->get_data($type);
@@ -191,6 +192,7 @@ class Db
         $this->sql_limit =
         $this->sql_column =
         $this->sql_value =
+        $this->sql_join =
         $this->sql_update = '';
         $this->where_count = 0;
         $this->where_relation = 'AND';
@@ -241,5 +243,11 @@ class Db
         return @$this
                     ->where('id', $id)
                     ->get()[0];
+    }
+    //链接两个表  返回把两个表相同的字段的数据都合成一个返回
+    public function join($biao, $arr)
+    {
+        $this->sql_join = "inner join $biao on $this->table.$arr[0]=$biao.$arr[1]";
+        return $this;
     }
 }
