@@ -11,6 +11,8 @@ class Cart extends Api
 
     public function add_or_update($p, &$msg)
     {
+//        var_dump($p);
+//        die();
         $product = new product();
         $product_id = $p['product_id'];
         $count = $p['count'];
