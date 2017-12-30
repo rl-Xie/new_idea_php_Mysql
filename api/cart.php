@@ -11,8 +11,6 @@ class Cart extends Api
 
     public function add_or_update($p, &$msg)
     {
-//        var_dump($p);
-//        die();
         $product = new product();
         $product_id = $p['product_id'];
         $count = $p['count'];
@@ -39,5 +37,12 @@ class Cart extends Api
         return $this->where('user_id', $uid)
             ->join($p['table'], $p['cond'])
             ->get();
+    }
+    public function delete_all_or_item($p=null,&$msg){
+        if($p['product_id']){
+           return $this->where('product_id',$p['product_id'])
+                  ->delete();
+        }
+        return $this->delete();
     }
 }

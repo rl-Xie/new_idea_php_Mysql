@@ -83,6 +83,7 @@ function has_permission_to($model, $action)
         'cart'    => [
             'add_or_update' => ['user', 'admin'],
             'get_data_s'    => ['user', 'admin'],
+            'delete_all_or_item' => ['user','admin'],
         ],
     ];
     if (!key_exists($model, $public) && !key_exists($model, $private)) {

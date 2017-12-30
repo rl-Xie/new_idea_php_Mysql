@@ -32,8 +32,9 @@
             </div>
             <hr>
             <div class="shopping-r-b">
-                <div>价格 : </div>
-                <div><button>结算</button></div>
+                <div><button class="btn btn-default btn_c">一键清空购物车</button></div>
+                <div class="price_c"><span>价格 : </span> <span id="price_page"> 888</span>元 </div>
+                <div><button class="btn btn-default btn_2_c">结算</button></div>
             </div>
         </div>
     </div>
