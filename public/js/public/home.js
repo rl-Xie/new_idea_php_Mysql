@@ -39,6 +39,7 @@
                         <div class="title">${item.title}</div>
                         <div class="other">月销：${item.sales}</div>
                         <div class="price">￥ ${item.price}</div>
+                        <span class="show_number" id="${item.id}"></span>
                         <button class="add" type="button">+</button>
                     </div>
              `;
@@ -48,27 +49,44 @@
             button_event.addEventListener('click', function () {
                 clearTimeout(timer);
                 count++;
-                console.log(count);
                 timer = setTimeout(function () {
                     $.post('/api/cart/add_or_update', {product_id: item.id, count: count})
                         .then(function (r) {
                             if (r.success) {
                                 inited();
+                                xuanqu();
                             }
                         })
                 }, 500);
             });
             el_product_list.appendChild(el);
-        })
+        });
+        xuanqu();
     };
     //获取联合数据
     //获取两个表相同的字符 合起来的数据
-    inited();
+    //选中页面显示数量的  标签
+    function xuanqu() {
+        var show_number =document.querySelectorAll('.show_number');
+        inited(show_show);
+        function show_show(data) {
+            data.forEach(function (kk) {
+                show_number.forEach(function (item) {
+                     if(kk.id ==item.id){
+                         item.innerHTML = kk.count;
+                     }
+                });
+            })
+        }
+    }
 
-    function inited() {
+    function inited(callback) {
         $.post('/api/cart/get_data_s', {table: 'product', cond: ['product_id', 'id']})
             .then(function (res) {
                 render_shopping_cart(res.data);
+                if(callback){
+                  callback(res.data);
+                }
             });
     }
 
@@ -117,6 +135,7 @@
                 .then(function (r) {
                     if (r.success) {
                         inited();
+                        xuanqu();
                     }
                 })
         })
@@ -133,6 +152,7 @@
                     .then(function (r) {
                         if (r.success) {
                             inited();
+                            xuanqu();
                         }
                     })
             }
@@ -149,13 +169,14 @@
                 .then(function (r) {
                     if (r.success) {
                         inited();
+                        xuanqu();
                     }
                 })
         });
     }
 
     //结算  提交订单   传过去数据的样式
-   // { list: [{id: 19, count: 2},{id: 20, count: 1}] }
+    // { list: [{id: 19, count: 2},{id: 20, count: 1}] }
     function submit_event(a, data) {
         a.addEventListener('click', function (e) {
             e.preventDefault();
@@ -169,11 +190,12 @@
             $.post('/api/order/checkout', {list})
                 .then(function (r) {
                     if (r.success) {
-                      //清空购物车
+                        //清空购物车
                         $.post('/api/cart/delete_all_or_item')
                             .then(function (r) {
-                                if(r.success){
+                                if (r.success) {
                                     inited();
+                                    xuanqu();
                                 }
                             })
                     }

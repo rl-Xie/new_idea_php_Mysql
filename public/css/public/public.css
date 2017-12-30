@@ -68,6 +68,13 @@ body{
     width: 30px;
     outline: 0;
 }
+.product-item .show_number{
+    color: #ff594f;
+    position: absolute;
+    right: 30px;
+    bottom: 5px;
+    outline: 0;
+}
 .product-item .add:hover {
     background: #a4e0dd;
 }
