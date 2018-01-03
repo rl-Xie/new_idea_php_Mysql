@@ -10,4 +10,10 @@ class Product extends Api
         'price' => 'numeric|positive',
         //        'stock' => 'integer|positive',
     ];
+    //获取数据  以cat_id 为分类标准
+    public function read_group(){
+        $sta = $this->pdo->prepare("select cat_id, product.* from product");
+        $sta->execute();
+        return $sta->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
+    }
 }

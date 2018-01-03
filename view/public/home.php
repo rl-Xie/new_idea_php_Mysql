@@ -48,8 +48,7 @@
                 <div class="shopping">
                     <a href="">购物车</a>
                 </div>
-                <div class="product-item clearfix">
-                </div>
+
             </div>
         </div>
     </div>

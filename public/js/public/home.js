@@ -24,7 +24,6 @@
             el_cat_list.appendChild(el);
         })
     };
-
     //获取数据 并渲染到页面
     product.read();
     product.after_read = function () {
@@ -67,14 +66,15 @@
     //获取两个表相同的字符 合起来的数据
     //选中页面显示数量的  标签
     function xuanqu() {
-        var show_number =document.querySelectorAll('.show_number');
+        var show_number = document.querySelectorAll('.show_number');
         inited(show_show);
+
         function show_show(data) {
             data.forEach(function (kk) {
                 show_number.forEach(function (item) {
-                     if(kk.id ==item.id){
-                         item.innerHTML = kk.count;
-                     }
+                    if (kk.id == item.id) {
+                        item.innerHTML = kk.count;
+                    }
                 });
             })
         }
@@ -84,8 +84,8 @@
         $.post('/api/cart/get_data_s', {table: 'product', cond: ['product_id', 'id']})
             .then(function (res) {
                 render_shopping_cart(res.data);
-                if(callback){
-                  callback(res.data);
+                if (callback) {
+                    callback(res.data);
                 }
             });
     }
@@ -227,3 +227,53 @@
 
     })
 })();
+
+//这本是分类  把每种都放在一个div 中
+// function jsk() {
+//     $.post('/api/product/read_group')
+//         .then(function (r) {
+//             var data = r.data;
+//             for(var key in data){
+//                 var el_div = document.createElement('div');
+//                 el_div.id ='cat-'+key;
+//                 el_div.classList.add('cat-group');
+//                 el_product_list.appendChild(el_div);
+//                 var list = data[key];
+//
+//                 list.forEach(function (item) {
+//                     var el = document.createElement('div');
+//                     el.classList.add('product-item', 'clearfix');
+//                     el.innerHTML = `
+//                  <div class="col-xs-5">
+//                         <img src="/upload/${item.cover_path}">
+//                     </div>
+//                     <div class="col-xs-7 detail">
+//                         <div class="title">${item.title}</div>
+//                         <div class="other">月销：${item.sales}</div>
+//                         <div class="price">￥ ${item.price}</div>
+//                         <span class="show_number" id="${item.id}"></span>
+//                         <button class="add" type="button">+</button>
+//                     </div>
+//              `;
+//                     var timer;
+//                     var count = 0;
+//                     var button_event = el.querySelector('.add');
+//                     button_event.addEventListener('click', function () {
+//                         clearTimeout(timer);
+//                         count++;
+//                         timer = setTimeout(function () {
+//                             $.post('/api/cart/add_or_update', {product_id: item.id, count: count})
+//                                 .then(function (r) {
+//                                     if (r.success) {
+//                                         inited();
+//                                         xuanqu();
+//                                     }
+//                                 })
+//                         }, 500);
+//                     });
+//                     el_div.appendChild(el);
+//                 });
+//                 xuanqu();
+//             }
+//         })
+// }
