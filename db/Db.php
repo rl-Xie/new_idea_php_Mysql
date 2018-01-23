@@ -42,7 +42,7 @@ class Db
             PDO::ATTR_EMULATE_PREPARES  => false, /* 模拟语句准备 */
         ];
         $host = config('db_host');
-        $this->pdo = new PDO("mysql:dbname=" . config('db_database') . ";" . "host=$host", config('db_username'), config('db_password'), $options);
+        $this->pdo = new PDO("mysql:dbname=" . config('db_database') . ";" . "host=$host;charset=utf8", config('db_username'), config('db_password'), $options);
     }
 
     //增
