@@ -70,10 +70,10 @@ class Model extends Db
             $r = $this->update($filled);
         } else {
             unset($filled['id']);
-            if (!$filled['create_time']) {
+            if (!@$filled['create_time']) {
                 $filled['create_time'] = $this->set_time();
             }
-            if (!$filled['update_time']) {
+            if (!@$filled['update_time']) {
                 $filled['update_time'] = $this->set_time();
             }
             if ($this->insert($filled)) {
